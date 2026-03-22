@@ -2,6 +2,7 @@
 picowatch
 
 # Database
+data/
 *.db
 *.db-shm
 *.db-wal

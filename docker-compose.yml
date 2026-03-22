@@ -4,11 +4,8 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - picowatch-data:/data
+      - ./data:/app/data
     environment:
-      - DB_PATH=/data/picowatch.db
       - PORT=8080
+      - DB_PATH=/app/data/picowatch.db
     restart: unless-stopped
-
-volumes:
-  picowatch-data:

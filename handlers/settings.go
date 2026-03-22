@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"net/http"
+	"strconv"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
@@ -96,6 +97,17 @@ func (h *Handler) UsersDelete(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) UsersChangePassword(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
+
+	callerID := r.Context().Value(userIDKey).(int64)
+	var targetID int64
+	if err := h.db.QueryRow("SELECT id FROM users WHERE id = ?", id).Scan(&targetID); err != nil {
+		h.writeError(w, http.StatusNotFound, "User not found")
+		return
+	}
+	if targetID != callerID {
+		h.writeError(w, http.StatusForbidden, "Cannot change another user's password")
+		return
+	}
 
 	var req struct {
 		Password string `json:"password"`
@@ -200,11 +212,15 @@ func (h *Handler) APIKeysCreate(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) APIKeysDelete(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
+	callerID := r.Context().Value(userIDKey).(int64)
 
-	var exists int
-	h.db.QueryRow("SELECT COUNT(*) FROM api_keys WHERE id = ?", id).Scan(&exists)
-	if exists == 0 {
+	var ownerID int64
+	if err := h.db.QueryRow("SELECT user_id FROM api_keys WHERE id = ?", id).Scan(&ownerID); err != nil {
 		h.writeError(w, http.StatusNotFound, "API key not found")
+		return
+	}
+	if ownerID != callerID {
+		h.writeError(w, http.StatusForbidden, "Cannot delete another user's API key")
 		return
 	}
 
@@ -244,6 +260,10 @@ func (h *Handler) RetentionSet(w http.ResponseWriter, r *http.Request) {
 	}
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		h.writeError(w, http.StatusBadRequest, "Invalid request body")
+		return
+	}
+	if days, err := strconv.Atoi(req.Days); err != nil || days < 1 {
+		h.writeError(w, http.StatusBadRequest, "retention_days must be a positive integer")
 		return
 	}
 	h.db.Exec("INSERT INTO settings (key, value) VALUES ('retention_days', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value", req.Days)

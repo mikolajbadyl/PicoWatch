@@ -70,13 +70,32 @@ Simply execute the compiled binary. By default, the server will start on port `8
 ./picowatch
 ```
 
-Optionally, you can override the port using an environment variable:
+Optionally, you can override the port or database path using environment variables:
 ```bash
-PORT=3000 ./picowatch
+PORT=3000 DB_PATH=/data/picowatch.db ./picowatch
 ```
 
 ### First Launch (Setup)
 On the very first launch, open `http://localhost:8080` in your browser. You will be redirected to the secure `/setup` page to create your master admin account and generate your first API key.
+
+---
+
+## Docker
+
+The easiest way to run PicoWatch is with Docker Compose:
+
+```bash
+docker compose up -d
+```
+
+This will build the image and start PicoWatch on port `8080`. The database is persisted in a named Docker volume (`picowatch-data`).
+
+To use a custom port:
+```yaml
+# docker-compose.yml
+ports:
+  - "3000:8080"
+```
 
 ---
 
@@ -90,9 +109,9 @@ curl -X POST http://localhost:8080/api/logs \
   -H "Content-Type: application/json" \
   -d '{
     "model": "gpt-4-turbo",
-    "prompt_tokens": 120,
-    "completion_tokens": 45,
-    "latency_ms": 1250
+    "input_tokens": 120,
+    "output_tokens": 45,
+    "duration_ms": 1250
   }'
 ```
 

@@ -1,0 +1,10 @@
+ui/node_modules/
+ui/build/
+ui/.svelte-kit/
+*.db
+*.db-shm
+*.db-wal
+picowatch
+.git/
+.env
+.env.*

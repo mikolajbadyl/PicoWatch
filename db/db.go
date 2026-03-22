@@ -6,12 +6,17 @@ import (
 	"encoding/hex"
 	"fmt"
 	"log"
+	"os"
 
 	_ "modernc.org/sqlite"
 )
 
 func Init() (*sql.DB, error) {
-	db, err := sql.Open("sqlite", "file:picowatch.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000)&_pragma=foreign_keys(on)")
+	dbPath := os.Getenv("DB_PATH")
+	if dbPath == "" {
+		dbPath = "picowatch.db"
+	}
+	db, err := sql.Open("sqlite", "file:"+dbPath+"?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000)&_pragma=foreign_keys(on)")
 	if err != nil {
 		return nil, fmt.Errorf("open db: %w", err)
 	}

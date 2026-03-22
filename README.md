@@ -5,6 +5,7 @@ PicoWatch is an ultra-lightweight, self-hosted observability and logging dashboa
 Built with **Go** and **SvelteKit**, it compiles down to a **single, dependency-free binary** that consumes merely ~24 MB of RAM while serving a fully-featured modern web interface.
 
 ![PicoWatch Dashboard](assets/screenshot.png)
+![PicoWatch Stats](assets/screenshot-stats.png)
 
 ---
 
@@ -32,7 +33,17 @@ Built with **Go** and **SvelteKit**, it compiles down to a **single, dependency-
 
 ## Building from Source
 
-To build PicoWatch from source, you need **Go (1.21+)** and **Node.js**:
+To build PicoWatch from source, you need **Go (1.21+)** and **Node.js**.
+
+The simplest way is to use the Makefile:
+
+```bash
+make build
+```
+
+This will install frontend dependencies, build the Svelte UI, and compile everything into a single Go binary.
+
+Alternatively, you can run the steps manually:
 
 1. **Build the Svelte Frontend**
    ```bash

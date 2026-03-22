@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 )
 
 type Stats struct {
@@ -88,24 +89,33 @@ func (h *Handler) StatsModels(w http.ResponseWriter, r *http.Request) {
 }
 
 type DailyStat struct {
-	Date   string  `json:"date"`
-	Count  int     `json:"count"`
-	Tokens int64   `json:"tokens"`
-	Cost   float64 `json:"cost"`
+	Date      string  `json:"date"`
+	Count     int     `json:"count"`
+	Tokens    int64   `json:"tokens"`
+	Cost      float64 `json:"cost"`
+	AvgLatency float64 `json:"avg_latency_ms"`
 }
 
 func (h *Handler) StatsDaily(w http.ResponseWriter, r *http.Request) {
+	days := 30
+	if d := r.URL.Query().Get("days"); d != "" {
+		if parsed, err := strconv.Atoi(d); err == nil && parsed > 0 && parsed <= 365 {
+			days = parsed
+		}
+	}
+
 	rows, err := h.db.Query(`
 		SELECT
 			date(created_at) as day,
 			COUNT(*),
 			COALESCE(SUM(input_tokens + output_tokens), 0),
-			COALESCE(SUM(cost), 0)
+			COALESCE(SUM(cost), 0),
+			COALESCE(AVG(duration_ms), 0)
 		FROM llm_logs
-		WHERE created_at >= date('now', '-30 days')
+		WHERE created_at >= date('now', ? || ' days')
 		GROUP BY day
 		ORDER BY day ASC
-	`)
+	`, strconv.Itoa(-days))
 	if err != nil {
 		h.writeError(w, http.StatusInternalServerError, "Database error")
 		return
@@ -115,7 +125,7 @@ func (h *Handler) StatsDaily(w http.ResponseWriter, r *http.Request) {
 	stats := []DailyStat{}
 	for rows.Next() {
 		var s DailyStat
-		rows.Scan(&s.Date, &s.Count, &s.Tokens, &s.Cost)
+		rows.Scan(&s.Date, &s.Count, &s.Tokens, &s.Cost, &s.AvgLatency)
 		stats = append(stats, s)
 	}
 

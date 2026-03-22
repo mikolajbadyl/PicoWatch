@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0d0d14;
+  --surface: #12121e;
+  --raised: #1a1a2e;
+  --raised2: #232340;
+  --border: #1a1a2e;
+  --text: #e2e8f0;
+  --text-heading: #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --text-placeholder: #334155;
+  --nav-active-bg: rgba(99, 102, 241, 0.15);
+  --nav-active-text: #a5b4fc;
+}
+
+html.light {
+  --bg: #f1f5f9;
+  --surface: #ffffff;
+  --raised: #e2e8f0;
+  --raised2: #cbd5e1;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --text-heading: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #64748b;
+  --text-placeholder: #94a3b8;
+  --nav-active-bg: rgba(79, 70, 229, 0.12);
+  --nav-active-text: #4f46e5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #12121e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2d2d4e;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3d3d6e;
+}
+
+html.light ::-webkit-scrollbar-track { background: var(--raised); }
+html.light ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
+html.light ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+html.light .bg-\[\#0d0d14\] { background-color: var(--bg) !important; }
+html.light .bg-\[\#12121e\] { background-color: var(--surface) !important; }
+html.light .bg-\[\#1a1a2e\] { background-color: var(--raised) !important; }
+html.light .bg-\[\#232340\] { background-color: var(--raised2) !important; }
+html.light .bg-\[\#1a1a2e\]\/30 { background-color: rgb(226 232 240 / 0.5) !important; }
+html.light .bg-\[\#1a1a2e\]\/40 { background-color: rgb(226 232 240 / 0.6) !important; }
+html.light .hover\:bg-\[\#1a1a2e\]\/30:hover { background-color: rgb(226 232 240 / 0.5) !important; }
+html.light .hover\:bg-\[\#232340\]:hover { background-color: var(--raised2) !important; }
+html.light .hover\:bg-\[\#1a1a2e\]:hover { background-color: var(--raised) !important; }
+
+html.light .border-\[\#1a1a2e\] { border-color: var(--border) !important; }
+html.light .border-\[\#1a1a2e\]\/40 { border-color: rgb(226 232 240 / 0.6) !important; }
+html.light .border-\[\#232340\] { border-color: var(--raised2) !important; }
+
+html.light .text-white { color: var(--text-heading) !important; }
+html.light .text-slate-200 { color: var(--text) !important; }
+html.light .text-slate-300 { color: var(--text-muted) !important; }
+html.light .text-slate-400 { color: var(--text-muted) !important; }
+html.light .text-slate-600 { color: var(--text-dim) !important; }
+
+html.light .text-blue-300 { color: #2563eb !important; }
+html.light .text-blue-400 { color: #2563eb !important; }
+html.light .bg-blue-500\/10 { background-color: rgb(37 99 235 / 0.12) !important; }
+
+html.light .placeholder-slate-600::placeholder { color: var(--text-placeholder) !important; }

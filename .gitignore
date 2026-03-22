@@ -1,0 +1,16 @@
+# Binary
+picowatch
+
+# Database
+*.db
+*.db-shm
+*.db-wal
+
+# Frontend build
+ui/build/
+ui/.svelte-kit/
+ui/node_modules/
+
+# Env
+.env
+.env.*

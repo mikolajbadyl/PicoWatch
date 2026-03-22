@@ -5,7 +5,6 @@ PicoWatch is an ultra-lightweight, self-hosted observability and logging dashboa
 Built with **Go** and **SvelteKit**, it compiles down to a **single, dependency-free binary** that consumes merely ~24 MB of RAM while serving a fully-featured modern web interface.
 
 ![PicoWatch Dashboard](assets/screenshot.png)
-![PicoWatch Stats](assets/screenshot-stats.png)
 
 ---
 

@@ -2,7 +2,7 @@ services:
   picowatch:
     build: .
     ports:
-      - "3001:8080"
+      - "8080:8080"
     volumes:
       - picowatch-data:/data
     environment:

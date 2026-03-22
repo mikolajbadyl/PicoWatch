@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Build UI
+        run: |
+          cd ui
+          bun install --frozen-lockfile
+          bun run build
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Build binaries
+        run: |
+          mkdir dist
+          GOOS=linux   GOARCH=amd64 go build -o dist/picowatch-linux-amd64 .
+          GOOS=linux   GOARCH=arm64 go build -o dist/picowatch-linux-arm64 .
+          GOOS=darwin  GOARCH=amd64 go build -o dist/picowatch-darwin-amd64 .
+          GOOS=darwin  GOARCH=arm64 go build -o dist/picowatch-darwin-arm64 .
+          GOOS=windows GOARCH=amd64 go build -o dist/picowatch-windows-amd64.exe .
+
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*

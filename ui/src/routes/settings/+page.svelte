@@ -12,7 +12,6 @@
   let retentionSaving = false;
   let retentionMsg = '';
 
-  // Users
   let users = [];
   let usersLoading = true;
   let newEmail = '';
@@ -21,7 +20,6 @@
   let addUserError = '';
   let addUserSuccess = '';
 
-  // Password change modal
   let changePwdUserId = null;
   let changePwdEmail = '';
   let changePwdValue = '';
@@ -181,7 +179,6 @@
   }
 </script>
 
-<!-- Change password modal -->
 {#if changePwdUserId !== null}
   <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
     <div class="absolute inset-0 bg-black/60" on:click={() => changePwdUserId = null} role="presentation"></div>
@@ -240,9 +237,7 @@
     </button>
   </div>
 
-  <!-- USERS TAB -->
   {#if tab === 'users'}
-    <!-- Add user form -->
     <div class="panel mb-5">
       <div class="section-title">Add user</div>
 
@@ -273,7 +268,6 @@
       </div>
     </div>
 
-    <!-- Users list -->
     <div class="panel">
       <div class="section-title">Users</div>
 
@@ -328,9 +322,7 @@
     </div>
   {/if}
 
-  <!-- API KEYS TAB -->
   {#if tab === 'apikeys'}
-    <!-- New key shown once -->
     {#if newKeyValue}
       <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4 mb-5">
         <div class="text-xs text-emerald-400 font-medium mb-2">New API key — copy it now, won't be shown again</div>
@@ -341,7 +333,6 @@
       </div>
     {/if}
 
-    <!-- Add key form -->
     <div class="panel mb-5">
       <div class="section-title">Create API key</div>
       {#if addKeyError}
@@ -361,7 +352,6 @@
       </div>
     </div>
 
-    <!-- Keys list -->
     <div class="panel">
       <div class="section-title">Active keys</div>
 
@@ -405,7 +395,6 @@
     </div>
   {/if}
 
-  <!-- PRICING TAB -->
   {#if tab === 'pricing'}
     <div class="panel">
       <div class="section-title">Model pricing</div>
@@ -450,7 +439,6 @@
     </div>
   {/if}
 
-  <!-- RETENTION TAB -->
   {#if tab === 'retention'}
     <div class="panel">
       <div class="section-title">Log retention</div>
@@ -482,7 +470,6 @@
     </div>
   {/if}
 
-  <!-- SNIPPETS TAB -->
   {#if tab === 'snippets'}
     <div class="space-y-4">
       <div class="panel">

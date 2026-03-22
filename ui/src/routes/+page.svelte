@@ -54,7 +54,6 @@
   {:else if error}
     <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-4 text-red-400 text-sm">{error}</div>
   {:else}
-    <!-- Stat cards: 2 cols on mobile, 4 on desktop -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
       <div class="card">
         <div class="card-label">Requests</div>
@@ -78,7 +77,6 @@
       </div>
     </div>
 
-    <!-- Daily chart -->
     {#if daily.length > 0}
       <div class="panel mb-4">
         <div class="text-xs font-medium text-slate-400 mb-3 uppercase tracking-wide">Requests — last 30 days</div>
@@ -102,7 +100,6 @@
       </div>
     {/if}
 
-    <!-- Models breakdown -->
     {#if models.length > 0}
       <div class="panel">
         <div class="text-xs font-medium text-slate-400 mb-4 uppercase tracking-wide">Models</div>

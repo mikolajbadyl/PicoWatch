@@ -49,7 +49,6 @@
 <div class="min-h-screen bg-[#0d0d14] flex items-center justify-center px-4">
   <div class="w-full max-w-sm">
     <div class="text-center mb-8">
-      <div class="w-11 h-11 bg-blue-600 rounded-xl flex items-center justify-center text-lg font-bold text-white mx-auto mb-3">P</div>
       <h1 class="text-xl font-semibold text-white">PicoWatch</h1>
       <p class="text-slate-500 text-sm mt-1">Create your admin account</p>
     </div>

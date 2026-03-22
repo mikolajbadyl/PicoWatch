@@ -92,7 +92,6 @@
 {:else if $authStore.authenticated}
   <div class="flex h-screen overflow-hidden bg-[#0d0d14]">
 
-    <!-- Mobile overlay -->
     {#if sidebarOpen}
       <div
         class="fixed inset-0 z-30 bg-black/60 md:hidden"
@@ -101,14 +100,11 @@
       ></div>
     {/if}
 
-    <!-- Sidebar -->
     <aside class="sidebar" class:open={sidebarOpen}>
       <div class="p-4 border-b border-[#1a1a2e] flex items-center justify-between">
         <div class="flex items-center gap-2.5">
-          <div class="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center text-sm font-bold text-white">P</div>
           <span class="font-semibold text-white text-sm">PicoWatch</span>
         </div>
-        <!-- Close button, mobile only -->
         <button
           class="md:hidden text-slate-400 hover:text-slate-200 p-1"
           on:click={() => (sidebarOpen = false)}
@@ -170,9 +166,7 @@
       </div>
     </aside>
 
-    <!-- Right side: topbar + content -->
     <div class="flex flex-col flex-1 min-w-0 overflow-hidden">
-      <!-- Mobile topbar -->
       <header class="md:hidden flex items-center gap-3 px-4 py-3 bg-[#12121e] border-b border-[#1a1a2e] shrink-0">
         <button
           on:click={() => (sidebarOpen = true)}
@@ -184,12 +178,10 @@
           </svg>
         </button>
         <div class="flex items-center gap-2">
-          <div class="w-6 h-6 bg-blue-600 rounded-md flex items-center justify-center text-xs font-bold text-white">P</div>
           <span class="font-semibold text-white text-sm">PicoWatch</span>
         </div>
       </header>
 
-      <!-- Main content -->
       <main class="flex-1 overflow-auto">
         <slot />
       </main>
